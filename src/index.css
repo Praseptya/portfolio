@@ -1,0 +1,167 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---------------------------------------------------------------
+   TOKEN WARNA
+   Format "R G B" agar bisa dipakai dengan opacity di Tailwind
+   (mis. bg-gold/20). Light mode = :root, Dark mode = .dark
+   --------------------------------------------------------------- */
+:root {
+  --bg: 238 242 248;          /* putih kebiruan */
+  --fg: 15 34 64;             /* navy gelap */
+  --muted: 74 91 120;
+  --navy: 26 54 93;           /* #1a365d */
+  --gold: 212 175 55;         /* #d4af37 */
+  --gold-text: 133 102 8;     /* gold lebih tua agar terbaca di latar terang */
+  --gold-hi: 196 152 24;      /* kilau pada teks shimmer */
+  --line: 26 54 93;           /* dipakai dengan opacity */
+  --glass: 255 255 255;
+  --glass-a: 0.62;
+  --glass-line-a: 0.14;
+  --shadow: 26 54 93;
+}
+
+.dark {
+  --bg: 7 15 31;              /* navy hampir hitam */
+  --fg: 238 242 250;
+  --muted: 154 168 192;
+  --navy: 26 54 93;
+  --gold: 212 175 55;
+  --gold-text: 224 190 80;
+  --gold-hi: 250 232 168;
+  --line: 255 255 255;
+  --glass: 255 255 255;
+  --glass-a: 0.045;
+  --glass-line-a: 0.1;
+  --shadow: 0 0 0;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 96px;
+  }
+  body {
+    @apply bg-bg font-sans text-fg antialiased;
+    transition: background-color 0.4s ease, color 0.4s ease;
+    overflow-x: hidden;
+  }
+  ::selection {
+    background: rgb(var(--gold) / 0.35);
+  }
+  :focus-visible {
+    outline: 2px solid rgb(var(--gold));
+    outline-offset: 3px;
+    border-radius: 8px;
+  }
+  /* Scrollbar tipis */
+  ::-webkit-scrollbar { width: 10px; }
+  ::-webkit-scrollbar-track { background: rgb(var(--bg)); }
+  ::-webkit-scrollbar-thumb {
+    background: rgb(var(--gold) / 0.35);
+    border-radius: 10px;
+  }
+  ::-webkit-scrollbar-thumb:hover { background: rgb(var(--gold)); }
+}
+
+@layer components {
+  /* Glassmorphism: transparan + blur di belakang */
+  .glass {
+    background: rgb(var(--glass) / var(--glass-a));
+    border: 1px solid rgb(var(--line) / var(--glass-line-a));
+    backdrop-filter: blur(18px) saturate(150%);
+    -webkit-backdrop-filter: blur(18px) saturate(150%);
+    box-shadow: 0 10px 40px -18px rgb(var(--shadow) / 0.35);
+  }
+
+  .container-page {
+    @apply mx-auto w-full max-w-6xl px-5 sm:px-8;
+  }
+
+  .section-pad {
+    @apply py-24 sm:py-32;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition-colors;
+  }
+  .btn-gold {
+    @apply bg-gold text-[#0b1a33] hover:bg-[#e3c158];
+  }
+  .btn-ghost {
+    @apply border border-line/20 text-fg hover:border-gold hover:text-gold-text;
+  }
+
+  .chip {
+    @apply inline-flex items-center rounded-full border border-line/15 bg-line/5 px-3 py-1 text-xs font-medium text-muted;
+  }
+}
+
+/* Blob latar yang bergerak pelan (memberi sesuatu untuk di-blur oleh kaca) */
+.bg-blob {
+  position: fixed;
+  border-radius: 9999px;
+  filter: blur(110px);
+  z-index: -1;
+  pointer-events: none;
+  animation: drift 22s ease-in-out infinite alternate;
+}
+@keyframes drift {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to   { transform: translate3d(80px, 50px, 0) scale(1.15); }
+}
+
+/* Teks emas berkilau (shimmer) */
+.text-shimmer {
+  background-image: linear-gradient(
+    100deg,
+    rgb(var(--gold-text)) 0%,
+    rgb(var(--gold-hi)) 45%,
+    rgb(var(--gold)) 60%,
+    rgb(var(--gold-text)) 100%
+  );
+  background-size: 260% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer 4.5s ease-in-out infinite;
+}
+@keyframes shimmer {
+  0%   { background-position: 100% 0; }
+  100% { background-position: -100% 0; }
+}
+
+/* Teks hanya garis tepi (dipakai di marquee) */
+.text-outline {
+  color: transparent;
+  -webkit-text-stroke: 1.2px rgb(var(--fg) / 0.55);
+}
+
+/* Grid tipis di latar, memudar ke tepi */
+.bg-grid {
+  background-image:
+    linear-gradient(rgb(var(--line) / 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(var(--line) / 0.06) 1px, transparent 1px);
+  background-size: 56px 56px;
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 25%, #000 25%, transparent 80%);
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 25%, #000 25%, transparent 80%);
+}
+
+/* Kursor ketik */
+.caret {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  margin-left: 3px;
+  vertical-align: -0.12em;
+  background: rgb(var(--gold));
+  animation: blink 1s steps(1) infinite;
+}
+@keyframes blink { 50% { opacity: 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .bg-blob, .caret, .text-shimmer { animation: none; }
+  .particle { display: none; }
+}
