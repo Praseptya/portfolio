@@ -42,11 +42,11 @@ export default function Contact() {
               </div>
             </div>
 
-            <ul className="relative z-10 mt-14 grid gap-4 sm:grid-cols-2">
+            <ul className="relative z-10 mt-14 grid grid-cols-1 gap-4 sm:grid-cols-2">
               {contact.links.map((l) => {
                 const Icon = getIcon(l.icon);
                 return (
-                  <li key={l.label}>
+                  <li key={l.label} className="min-w-0">
                     <TiltCard max={5} className="rounded-2xl">
                       <a
                         href={l.href}

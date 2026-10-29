@@ -19,6 +19,7 @@ export default function TiltCard({ children, className = "", max = 7 }) {
   const rotateY = useSpring(useTransform(nx, [0, 1], [-max, max]), { stiffness: 220, damping: 22 });
   const glare = useMotionTemplate`radial-gradient(360px circle at ${gx}px ${gy}px, rgb(212 175 55 / 0.2), transparent 60%)`;
 
+  if (e.pointerType !== "mouse") return;
   const onMove = (e) => {
     const r = ref.current.getBoundingClientRect();
     nx.set((e.clientX - r.left) / r.width);
