@@ -9,7 +9,6 @@ export default function Magnetic({ children, strength = 0.35, className = "" }) 
   const sx = useSpring(x, { stiffness: 220, damping: 14 });
   const sy = useSpring(y, { stiffness: 220, damping: 14 });
 
-  if (e.pointerType !== "mouse") return;
   const onMove = (e) => {
     const r = ref.current.getBoundingClientRect();
     x.set((e.clientX - (r.left + r.width / 2)) * strength);
