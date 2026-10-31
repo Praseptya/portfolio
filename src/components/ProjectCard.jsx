@@ -3,6 +3,8 @@ import { motion } from "framer-motion";
 import { ChevronDown, ExternalLink } from "lucide-react";
 import TiltCard from "./TiltCard";
 import { GithubLucide } from "../utils/iconMap";
+import { SiItchdotio, SiYoutube } from "react-icons/si";
+
 
 export default function ProjectCard({ project }) {
   const [imgFailed, setImgFailed] = useState(!project.image);
@@ -59,7 +61,7 @@ export default function ProjectCard({ project }) {
           ))}
         </div>
 
-        {(project.live || project.github) && (
+        {(project.live || project.github || project.itch || project.youtube) && (
           <div className="mt-auto flex flex-wrap gap-3 pt-6">
             {project.live && (
               <motion.a
@@ -83,6 +85,30 @@ export default function ProjectCard({ project }) {
                 className="btn btn-ghost !px-4 !py-2"
               >
                 <GithubLucide size={15} /> GitHub
+              </motion.a>
+            )}
+            {project.itch && (
+              <motion.a
+                href={project.itch}
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ y: -2 }}
+                whileTap={{ scale: 0.95 }}
+                className="btn btn-ghost !px-4 !py-2"
+              >
+                <SiItchdotio size={15} /> itch.io
+              </motion.a>
+            )}
+            {project.youtube && (
+              <motion.a
+                href={project.youtube}
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ y: -2 }}
+                whileTap={{ scale: 0.95 }}
+                className="btn btn-ghost !px-4 !py-2"
+              >
+                <SiYoutube size={15} /> YouTube
               </motion.a>
             )}
           </div>

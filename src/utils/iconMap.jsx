@@ -16,7 +16,7 @@ import {
 import { FaMicrosoft, FaLinkedinIn, FaWhatsapp, FaInstagram } from "react-icons/fa6";
 import {
   Brain, ChartColumn, ChartPie, Globe, Mic, PenTool, Palette, Code2,
-  Mail, Phone, Briefcase, FlaskConical, HandHelping, GraduationCap, MessageSquareText, Sparkles, Shapes,
+  Mail, Phone, Briefcase, FlaskConical, HandHelping, GraduationCap, MessageSquareText, Sparkles, Shapes, Gamepad2,
   Github as GithubLucide,
 } from "lucide-react";
 
@@ -69,6 +69,7 @@ export const iconMap = {
   research: FlaskConical,
   volunteer: HandHelping,
   education: GraduationCap,
+  esport: Gamepad2,
 };
 
 // Mengembalikan komponen ikon; jika kunci tidak ada, pakai ikon "code".

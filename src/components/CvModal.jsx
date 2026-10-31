@@ -1,17 +1,22 @@
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Download, ExternalLink, X } from "lucide-react";
-import { profile } from "../data/portfolioData";
+// Alamat file CV untuk tombol Unduh / Tab baru (Vite menambahkan kode unik di nama file,
+// jadi setelah CV diganti browser tidak menampilkan versi lama dari cache).
+import cvUrl from "../assets/cv.pdf?url";
 
-// Desktop punya penampil PDF bawaan. Chrome di Android/iOS tidak (atau hanya
-// menampilkan halaman pertama), jadi di HP kita gambar sendiri halamannya dengan pdf.js.
-const isMobile =
-  typeof navigator !== "undefined" && /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-const useNative =
-  typeof navigator !== "undefined" && navigator.pdfViewerEnabled === true && !isMobile;
+// Isi PDF dimasukkan ke dalam kode situs (bukan diunduh lewat jaringan), sehingga
+// IDM atau download manager lain tidak bisa mencegatnya. Hanya dimuat saat pop-up dibuka.
+async function loadCvBytes() {
+  const { default: base64 } = await import("../assets/cv.pdf?base64");
+  const bin = atob(base64);
+  const bytes = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+  return bytes;
+}
 
-/* ---------- Pratinjau untuk HP: semua halaman digambar ke canvas ---------- */
-function PdfPages({ url }) {
+// Semua halaman PDF digambar ke canvas dengan pdf.js (sama di desktop dan HP).
+function PdfPages() {
   const wrapRef = useRef(null);
   const [status, setStatus] = useState("loading"); // loading | ready | error
 
@@ -21,15 +26,19 @@ function PdfPages({ url }) {
 
     (async () => {
       try {
-        const pdfjs = await import("pdfjs-dist/legacy/build/pdf.min.mjs");
-        const { default: workerSrc } = await import(
-          "pdfjs-dist/legacy/build/pdf.worker.min.mjs?url"
-        );
+        const [pdfjs, { default: workerSrc }, bytes] = await Promise.all([
+          import("pdfjs-dist/legacy/build/pdf.min.mjs"),
+          import("pdfjs-dist/legacy/build/pdf.worker.min.mjs?url"),
+          loadCvBytes(),
+        ]);
         pdfjs.GlobalWorkerOptions.workerSrc = workerSrc;
 
-        doc = await pdfjs.getDocument(url).promise;
+        doc = await pdfjs.getDocument({ data: bytes }).promise;
         const wrap = wrapRef.current;
-        if (cancelled || !wrap) return;
+        if (cancelled || !wrap) {
+          doc.destroy();
+          return;
+        }
         wrap.innerHTML = "";
 
         const width = wrap.clientWidth;
@@ -61,7 +70,7 @@ function PdfPages({ url }) {
       cancelled = true;
       doc?.destroy();
     };
-  }, [url]);
+  }, []);
 
   return (
     <div className="relative flex-1 overflow-y-auto bg-black/20 p-3">
@@ -74,35 +83,6 @@ function PdfPages({ url }) {
           Pratinjau tidak bisa dimuat. Silakan gunakan tombol Unduh di atas.
         </p>
       )}
-    </div>
-  );
-}
-
-/* ---------- Pratinjau untuk desktop: iframe + blob (tahan IDM) ---------- */
-function NativeViewer({ url }) {
-  const [blobUrl, setBlobUrl] = useState(null);
-  const [failed, setFailed] = useState(false);
-
-  useEffect(() => {
-    let made;
-    fetch(url)
-      .then((r) => {
-        if (!r.ok) throw new Error("gagal");
-        return r.blob();
-      })
-      .then((b) => {
-        made = URL.createObjectURL(new Blob([b], { type: "application/pdf" }));
-        setBlobUrl(made);
-      })
-      .catch(() => setFailed(true));
-    return () => made && URL.revokeObjectURL(made);
-  }, [url]);
-
-  if (blobUrl)
-    return <iframe src={blobUrl} title="Pratinjau CV" className="h-full w-full flex-1 bg-white" />;
-  return (
-    <div className="grid flex-1 place-items-center p-6 text-center text-muted">
-      {failed ? "Pratinjau tidak bisa dimuat. Silakan gunakan tombol Unduh." : "Memuat CV..."}
     </div>
   );
 }
@@ -143,11 +123,11 @@ export default function CvModal({ open, onClose }) {
             <div className="flex items-center justify-between gap-3 border-b border-line/10 px-4 py-3 sm:px-5">
               <h3 className="font-display text-lg font-semibold">Pratinjau CV</h3>
               <div className="flex items-center gap-2">
-                <a href={profile.cv} download className="btn btn-gold !px-4 !py-2">
+                <a href={cvUrl} download="CV_MuhamadAryaPraseptya.pdf" className="btn btn-gold !px-4 !py-2">
                   <Download size={15} /> Unduh
                 </a>
                 <a
-                  href={profile.cv}
+                  href={cvUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn btn-ghost !px-4 !py-2 max-sm:hidden"
@@ -165,7 +145,7 @@ export default function CvModal({ open, onClose }) {
               </div>
             </div>
 
-            {useNative ? <NativeViewer url={profile.cv} /> : <PdfPages url={profile.cv} />}
+            <PdfPages />
           </motion.div>
         </motion.div>
       )}

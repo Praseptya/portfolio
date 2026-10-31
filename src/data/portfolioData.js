@@ -147,13 +147,22 @@ export const experiences = [
     tags: ["PHP", "Laravel", "MySQL"],
   },
   {
+    type: "esport",
+    title: "Anggota UKM",
+    organization: "Unpak Esport",
+    period: "2024 - 2026",
+    description:
+      "Terlibat aktif dalam kegiatan latihan dan komunitas Unpak Esport yang melatih kerja sama tim, komunikasi, dan sportivitas.",
+    tags: ["Teamwork", "Communication", "Sportivitas"],
+  },
+  {
     type: "volunteer",
     title: "Volunteer, Divisi Keamanan",
     organization: "Festival MIPA",
     period: "25 - 28 November 2024",
     description:
       "Membantu menjaga ketertiban dan keamanan selama acara berlangsung serta bekerja sama dengan anggota panitia lainnya.",
-    tags: [],
+    tags: ["Teamwork", "Communication"],
   },
 ];
 
@@ -239,15 +248,15 @@ export const skillCategories = [
 export const projects = [
   {
     title: "LingoJoy",
-    shortDesc: "Aplikasi latihan pelafalan berbasis speech recognition",
-    role: "UI/UX & Machine Learning Developer",
+    shortDesc: "Aplikasi latihan pelafalan bahasa inggris berbasis speech recognition",
+    role: "Machine Learning & Mobile Developer",
     year: "2026",
     description:
-      "Aplikasi mobile offline-first untuk melatih pelafalan bahasa Inggris. Menggabungkan Google ASR saat online dan model APC-LSTM on-device sebagai cadangan saat offline. Skor kemiripan dihitung dengan Levenshtein Distance sehingga umpan balik muncul seketika, lengkap dengan modul latihan terstruktur dan penyimpanan lokal SQLite.",
+      "Aplikasi mobile untuk melatih pelafalan bahasa Inggris. Menggabungkan Google ASR saat online dan model APC-LSTM on-device sebagai cadangan saat offline. Skor kemiripan dihitung dengan Levenshtein Distance sehingga umpan balik muncul seketika, lengkap dengan modul latihan terstruktur dan penyimpanan lokal SQLite.",
     techStack: ["Flutter", "Dart", "Python", "APC-LSTM", "Google ASR", "SQLite"],
     image: "/projects/lingojoy.jpg",
     live: "",
-    github: "https://github.com/Praseptya",
+    github: "https://github.com/Praseptya/LingoJoy",
   },
   {
     title: "Program Budgeting System",
@@ -255,11 +264,35 @@ export const projects = [
     role: "Full-Stack Developer",
     year: "2025",
     description:
-      "Aplikasi web internal PT Media Televisi Indonesia untuk menggantikan pengajuan anggaran produksi yang sebelumnya manual. Menyediakan entri data terstruktur, pelacakan biaya, dan alur persetujuan bertingkat, dengan dashboard dan rincian pengeluaran yang bisa dipantau tiap tim produksi.",
+      "Aplikasi web internal yang dikembangkan sebagai proyek kerja praktik (internship) di PT Media Televisi Indonesia. Berawal dari purwarupa interaktif, sistem ini dirancang untuk mendigitalisasi dan menggantikan pengajuan anggaran produksi manual, dilengkapi fitur pelacakan biaya, alur persetujuan bertingkat, dan pemantauan pengeluaran khusus untuk tim produksi.",
     techStack: ["PHP", "Laravel", "MySQL", "Figma"],
     image: "/projects/budgeting.jpg",
     live: "",
-    github: "https://github.com/Praseptya",
+    github: "https://github.com/Praseptya/Program-Budgeting-System",
+  },
+  {
+    title: "Wanderer’s Call",
+    shortDesc: "Game 2D pixel adventure bertema pelestarian lingkungan",
+    role: "Game Developer & Designer",
+    year: "2025", 
+    description: "Game 2D pixel adventure berbasis cerita tentang sebuah desa yang terancam banjir bandang akibat alih fungsi hutan menjadi perkebunan kelapa sawit. Pemain berperan sebagai pahlawan yang melawan monster amukan alam bernama 'Bahwit'. Proyek ini mencakup pembuatan Game Manager, desain pixel art, implementasi animasi dan audio, serta penulisan alur cerita.",
+    techStack: ["Unity", "C#", "Pixel Art", "Game Design"],
+    image: "/projects/wanderers-call.jpg",
+    live: "",
+    github: "",
+    itch: "https://ra-zz.itch.io/wanderers-call",
+    youtube: "https://www.youtube.com/watch?v=hhe6zHCdIl8",
+  },
+  {
+    title: "Discorso",
+  shortDesc: "Aplikasi media sosial berbasis mobile",
+  role: "Mobile Developer",
+  year: "2025",
+  description: "Aplikasi media sosial yang memungkinkan pengguna berbagi pemikiran melalui postingan teks, berinteraksi dengan like dan komentar, mengikuti pengguna lain, serta mengelola profil. Pengembangan mencakup implementasi autentikasi, operasi CRUD, sistem follow/unfollow, pencarian profil, integrasi backend Firebase, dan state management menggunakan Provider.",
+    techStack: ["Flutter", "Dart", "Firebase", "UI/UX"],
+    image: "/projects/discorso.jpg",
+    live: "",
+    github: "https://github.com/Praseptya/discorso",
   },
   {
     title: "KasirWarteg",
@@ -271,19 +304,7 @@ export const projects = [
     techStack: ["HTML", "CSS", "PHP", "JavaScript", "MySQL"],
     image: "/projects/kasirwarteg.jpg",
     live: "",
-    github: "https://github.com/Praseptya",
-  },
-  {
-    title: "Discorso",
-    shortDesc: "Aplikasi media sosial mobile",
-    role: "Mobile Developer & UI/UX Designer",
-    year: "2025",
-    description:
-      "Aplikasi media sosial minimalis dengan feed real-time, autentikasi, dan interaksi pengguna. Dibangun dengan Flutter dan Firebase untuk manajemen data awan secara real-time, dilengkapi dark mode dan moderasi konten.",
-    techStack: ["Flutter", "Dart", "Firebase", "UI/UX"],
-    image: "/projects/discorso.jpg",
-    live: "",
-    github: "https://github.com/Praseptya",
+    github: "https://github.com/Praseptya/KasirWarteg",
   },
 ];
 
@@ -311,13 +332,13 @@ export const contact = {
       label: "WhatsApp",
       icon: "whatsapp",
       value: "+62 877-8883-2002",
-      href: "https://wa.me/6287788832002", // format: wa.me/62 + nomor tanpa angka 0 di depan
+      href: "https://wa.me/6287788832002",
     },
     {
       label: "LinkedIn",
       icon: "linkedin",
       value: "Muhamad Arya Praseptya",
-      href: "https://linkedin.com/in/praseptyaa", // dari website lama; pastikan masih benar
+      href: "https://linkedin.com/in/praseptyaa",
     },
     {
       label: "GitHub",
