@@ -199,6 +199,7 @@ export const skillCategories = [
       { name: "Flutter", icon: "flutter" },
       { name: "Dart", icon: "dart" },
       { name: "Firebase", icon: "firebase" },
+      { name: "API Integration", icon: "api" },
       { name: "SQLite", icon: "sqlite" },
     ],
   },
@@ -253,7 +254,7 @@ export const projects = [
     year: "2026",
     description:
       "Aplikasi mobile untuk melatih pelafalan bahasa Inggris. Menggabungkan Google ASR saat online dan model APC-LSTM on-device sebagai cadangan saat offline. Skor kemiripan dihitung dengan Levenshtein Distance sehingga umpan balik muncul seketika, lengkap dengan modul latihan terstruktur dan penyimpanan lokal SQLite.",
-    techStack: ["Flutter", "Dart", "Python", "APC-LSTM", "Google ASR", "SQLite"],
+    techStack: ["Flutter", "Dart", "Python", "APC-LSTM", "Google ASR", "API Integration", "SQLite"],
     image: "/projects/lingojoy.jpg",
     live: "",
     github: "https://github.com/Praseptya/LingoJoy",

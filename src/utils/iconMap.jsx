@@ -16,7 +16,7 @@ import {
 import { FaMicrosoft, FaLinkedinIn, FaWhatsapp, FaInstagram } from "react-icons/fa6";
 import {
   Brain, ChartColumn, ChartPie, Globe, Mic, PenTool, Palette, Code2,
-  Mail, Phone, Briefcase, FlaskConical, HandHelping, GraduationCap, MessageSquareText, Sparkles, Shapes, Gamepad2,
+  Mail, Phone, Briefcase, FlaskConical, HandHelping, GraduationCap, MessageSquareText, Webhook, Sparkles, Shapes, Gamepad2,
   Github as GithubLucide,
 } from "lucide-react";
 
@@ -29,6 +29,7 @@ export const iconMap = {
   typescript: SiTypescript,
   html: SiHtml5,
   nodejs: SiNodedotjs,
+  api: Webhook,
   react: SiReact,
   vite: SiVite,
   tailwind: SiTailwindcss,
