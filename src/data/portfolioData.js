@@ -285,6 +285,17 @@ export const projects = [
     youtube: "https://www.youtube.com/watch?v=hhe6zHCdIl8",
   },
   {
+    title: "Company Profile Agen BRILink Arya Cellular",
+    shortDesc: "Website company profile untuk informasi dan promosi layanan Arya Cell",
+    role: "Front-End Developer",
+    year: "2026",
+    description: "Website company profile berbasis React yang berfungsi sebagai media informasi dan promosi bisnis Arya Cell secara online. Website ini difokuskan untuk menyajikan informasi layanan dan mengarahkan pengunjung untuk menghubungi atau mengunjungi toko secara langsung, tanpa adanya fitur sistem kasir, e-commerce, maupun transaksi perbankan.",
+    techStack: ["React"],
+    image: "/projects/brilink.jpg",
+    live: "aryacellular.vercel.app",
+    github: "https://github.com/Praseptya/bio-aryacell",
+  },
+  {
     title: "Discorso",
   shortDesc: "Aplikasi media sosial berbasis mobile",
   role: "Mobile Developer",
